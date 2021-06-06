@@ -9,7 +9,11 @@ const Table = ({ cellMatrix, onClick }) => {
     );
   }
 
-  return <div className="board">{rows}</div>;
+  return (
+    <div className="table">
+      <div className="board">{rows}</div>
+    </div>
+  );
 };
 
 export default Table;

@@ -1,17 +1,25 @@
-.page {
-  margin: 0 auto;
-  width: 750px;
+:root {
+  --gridSize: 740px;
+  --squareBoxSize: 74px;
 }
 
 .board {
-  padding-top: 1em;
+  padding: 40px;
+}
+
+.table {
+  width: 800px;
+  height: 800px;
+  background-image: url('./images/gameBoard.png');
+  background-size: cover;
 }
 
 .square {
-  border: solid 1px #ddd;
   margin: -1px;
   min-height: 10px;
   cursor: pointer;
+  width: var(--squareBoxSize);
+  height: var(--squareBoxSize);
 }
 
 .blue {
@@ -31,9 +39,7 @@
   word-spacing: normal;
   vertical-align: top;
   text-rendering: auto;
-  display: inline-block;
   zoom: 1;
-  width: 10%;
 }
 
 .players {
@@ -42,8 +48,77 @@
 }
 
 .square {
-  height: 75px;
   position: relative;
   display: inline-flex;
   justify-content: center;
+}
+
+.dash-board {
+  display: flex;
+}
+
+.player-list {
+  width: 200px;
+  height: 500px;
+  border: 1px solid black;
+  margin: 0px 20px;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.player div {
+  width: 120px;
+}
+
+.player-list-header {
+  display: flex;
+  justify-content: center;
+}
+
+.dices {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.board-status {
+  display: flex;
+  justify-content: center;
+}
+
+.player-info {
+  width: 800px;
+  height: 500px;
+  border: 1px solid black;
+  margin: 0px auto;
+}
+
+.player-img {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.page {
+  display: flex;
+  align-items: flex-end;
+}
+
+.player-wallet {
+  width: 250px;
+  height: 400px;
+  background-image: url(./images/playersWallet.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: -55px;
+}
+
+.player-wallet-box {
+  width: 148px;
+  margin-left: 54px;
+  margin-top: 65px;
+  height: 280px;
 }

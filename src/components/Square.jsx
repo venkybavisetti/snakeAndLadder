@@ -1,5 +1,5 @@
 import React from 'react';
-import player from '../images/player.png';
+import player from '../images/gamePlayer.png';
 
 const Square = ({ onClick, rowId, cellId, dimension, value }) => {
   let players = [];
@@ -9,17 +9,13 @@ const Square = ({ onClick, rowId, cellId, dimension, value }) => {
         key={index}
         src={player}
         alt="player"
-        style={{ height: 75 / Math.ceil(value / 2) }}
+        style={{ height: 70 / Math.ceil(value / 2) }}
       />
     );
   }
 
   return (
-    <div
-      className="square pure-u-1-6"
-      style={{ height: 750 / dimension }}
-      onClick={() => onClick(rowId, cellId)}
-    >
+    <div className="square pure-u-1-6" onClick={() => onClick(rowId, cellId)}>
       <div className="players">{players}</div>
     </div>
   );

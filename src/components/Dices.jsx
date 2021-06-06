@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
 
@@ -8,9 +8,12 @@ const Dice = () => {
   };
 
   return (
-    <div>
-      <ReactDice numDice={1} rollDone={handleRoll} />
-    </div>
+    <ReactDice
+      numDice={1}
+      rollDone={handleRoll}
+      defaultRoll={6}
+      disableIndividual={false}
+    />
   );
 };
 
