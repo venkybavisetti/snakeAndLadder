@@ -5,6 +5,8 @@
 
 .board {
   padding: 40px;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .table {
@@ -17,7 +19,6 @@
 .square {
   margin: -1px;
   min-height: 10px;
-  cursor: pointer;
   width: var(--squareBoxSize);
   height: var(--squareBoxSize);
 }
@@ -121,4 +122,24 @@
   margin-left: 54px;
   margin-top: 65px;
   height: 280px;
+}
+
+.selected {
+  background-color: black;
+}
+
+.selected-img {
+  cursor: pointer;
+}
+
+.dice-board {
+  text-align: center;
+  height: 50px;
+  font-size: 50px;
+  color: red;
+}
+
+.row-reverse {
+  display: flex;
+  flex-direction: row-reverse;
 }

@@ -1,10 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import player from '../images/gamePlayer.png';
-
-const data = [
-  { name: 'ravashna', hue: 18 },
-  { name: 'ram', hue: 60 },
-];
 
 const Player = ({ playerData }) => {
   return (
@@ -19,14 +14,15 @@ const Player = ({ playerData }) => {
   );
 };
 
-const PlayerList = ({ header }) => {
-  const players = data.map((playerData, index) => (
-    <Player key={index} playerData={playerData} />
-  ));
+const PlayerList = ({ header, players }) => {
   return (
     <div>
       <div className="player-list-header">{header}</div>
-      <div className="player-list">{players}</div>
+      <div className="player-list">
+        {players.map((playerData, index) => (
+          <Player key={index} playerData={playerData} />
+        ))}
+      </div>
     </div>
   );
 };

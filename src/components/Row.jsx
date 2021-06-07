@@ -1,22 +1,13 @@
 import React from 'react';
 import Square from './Square';
 
-const Row = ({ id, cellArray, onClick }) => {
+const Row = ({ id, cellArray }) => {
   let cells = [];
   for (let i = 0; i < cellArray.length; i++) {
-    cells.push(
-      <Square
-        rowId={id}
-        cellId={i}
-        dimension={cellArray.length}
-        value={cellArray[i]}
-        key={i}
-        onClick={onClick}
-      />
-    );
+    cells.push(<Square value={cellArray[i]} key={i} />);
   }
 
-  return <div className="">{cells}</div>;
+  return <div className={id % 2 === 1 ? 'row-reverse' : ''}>{cells}</div>;
 };
 
 export default Row;

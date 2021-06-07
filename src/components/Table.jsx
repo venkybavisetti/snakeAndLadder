@@ -1,12 +1,10 @@
 import React from 'react';
 import Row from './Row';
 
-const Table = ({ cellMatrix, onClick }) => {
+const Table = ({ table }) => {
   let rows = [];
-  for (let i = 0; i < cellMatrix.length; i++) {
-    rows.push(
-      <Row cellArray={cellMatrix[i]} id={i} key={i} onClick={onClick} />
-    );
+  for (let i = 0; i < table.length; i++) {
+    rows.push(<Row cellArray={table[i]} id={i} key={i} />);
   }
 
   return (
