@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { api } from './api';
+import { Button, TextField } from '@material-ui/core';
 
 const Login = () => {
   const [join, setJoin] = useState(false);
@@ -20,25 +21,53 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          setJoin(true);
-        }}
-      >
-        join
-      </button>
-      <button onClick={handleCreateRoom}>Create Room</button>
-      {join && (
-        <div>
-          <input
-            type="text"
-            onChange={(event) => setText(event.target.value)}
-            value={text}
-          />
-          {text.trim() !== '' && <button onClick={handleJoin}>start</button>}
+    <div className="loginPage">
+      <div className="login">
+        <div className="login-buttons">
+          <Button
+            className={join ? 'login-buttons-active' : ''}
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setJoin(true);
+            }}
+          >
+            Join Room
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleCreateRoom}
+          >
+            Create Room
+          </Button>
         </div>
-      )}
+
+        {join && (
+          <>
+            <div className="login-room-id login-row">
+              <label>Enter Room Id :</label>
+              <TextField
+                id="standard-number"
+                type="number"
+                onChange={(event) => setText(event.target.value)}
+                value={text}
+              />
+            </div>
+
+            <div className="login-row">
+              <Button
+                disabled={!(text.trim() !== '') || !(text >= 1)}
+                variant="contained"
+                color="primary"
+                onClick={handleJoin}
+              >
+                Join Game
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

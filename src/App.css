@@ -86,21 +86,28 @@
 }
 
 .board-status {
-  display: flex;
-  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.board-status div {
+  margin-right: 10px;
 }
 
 .player-info {
   width: 800px;
   height: 500px;
-  border: 1px solid black;
+  border: 3px solid black;
   margin: 0px auto;
+  padding: 40px;
+  margin-top: 100px;
 }
 
 .player-img {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
+  border: 2px solid black;
+  padding: 20px;
 }
 
 .page {
@@ -130,6 +137,9 @@
 
 .selected-img {
   cursor: pointer;
+  width: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .dice-board {
@@ -142,4 +152,54 @@
 .row-reverse {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.login {
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  padding: 40px;
+  border: 3px solid black;
+  margin-top: 200px;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.login-buttons button {
+  margin-right: 5px;
+}
+
+.login-buttons-active {
+  box-shadow: 0px 7px rgb(179, 143, 89) !important;
+}
+.login-room-id label {
+  margin-right: 10px;
+}
+.login-room-id {
+  display: flex;
+  align-items: center;
+}
+
+.login-room-id input {
+  width: 40px;
+}
+
+.login-row {
+  margin: 60px !important;
+  display: flex;
+  justify-content: center;
+}
+
+.loginPage {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-image: url(./images/loginPage.jpeg);
+}
+
+.join-room-btn {
+  margin-top: 39px;
 }

@@ -23,7 +23,7 @@ const Board = () => {
   const [table, setTable] = useState(getInitCells(10));
   const [isHost, setHost] = useState(false);
   const [popup, setPopup] = useState(true);
-  const apiData = useTimer({ type: 'board-data' }, 10);
+  const apiData = useTimer({ type: 'board-data' }, 2);
   const [inPlayList, setInPlayList] = useState([]);
   const [winnersList, setWinnersList] = useState([]);
   const [playersWallet, setPlayersWallet] = useState([]);
