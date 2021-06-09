@@ -1,19 +1,23 @@
 import React from 'react';
-import player from '../images/gamePlayer.png';
+import { BootstrapTooltip, PlayerImg } from './util';
 
 const Square = ({ value }) => {
   let players = [];
   for (let index = 0; index < value.length; index++) {
     players.push(
-      <img
+      <BootstrapTooltip
         key={index}
-        src={player}
-        alt="player"
-        style={{
-          height: 70 / Math.ceil(value.length / 2),
-          filter: `hue-rotate(${value[index].hue}deg)`,
-        }}
-      />
+        title={value[index].name}
+        placement="top"
+        arrow
+      >
+        <PlayerImg
+          {...{
+            height: 70 / Math.ceil(value.length / 2),
+            player: value[index].player,
+          }}
+        />
+      </BootstrapTooltip>
     );
   }
 

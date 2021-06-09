@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import player from '../images/gamePlayer.png';
 import { api } from './api';
 import { useHistory } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
+import { PlayerImg } from './util';
 
 const PlayerInfo = () => {
   const [playerName, setPlayerName] = useState('');
   const [roomId, setRoomId] = useState('');
   const [data, setData] = useState([]);
-  const [hueValue, setHueValue] = useState(undefined);
+  const [player, setPlayer] = useState(undefined);
   const [errorMsg, setErrorMsg] = useState(false);
 
   const history = useHistory();
@@ -19,15 +19,16 @@ const PlayerInfo = () => {
   }, []);
 
   const handleJoin = () => {
-    api({ type: 'join', data: { playerName, hueValue } }).then(
-      ({ status, data }) => {
+    api({ type: 'join', data: { playerName, player } })
+      .then(({ status, data }) => {
         if (status) history.push('/board');
         else {
           setErrorMsg(true);
           setData(data);
+          setPlayer(undefined);
         }
-      }
-    );
+      })
+      .catch((error) => history.push('/'));
   };
 
   return (
@@ -55,24 +56,33 @@ const PlayerInfo = () => {
                 <div
                   key={index}
                   className={`selected-img ${
-                    hueValue === value ? 'selected' : ''
+                    player &&
+                    player.hue === value.hue &&
+                    player.playerNum === value.playerNum
+                      ? 'selected'
+                      : ''
                   }`}
-                  onClick={() => setHueValue(value)}
+                  onClick={() => setPlayer(value)}
                 >
-                  <img
-                    src={player}
-                    alt="player"
-                    style={{ height: 50, filter: `hue-rotate(${value}deg)` }}
+                  <PlayerImg
+                    {...{
+                      height: 50,
+                      player: value,
+                    }}
                   />
                 </div>
               );
             })}
           </div>
         </div>
-        {errorMsg && <div>Please select different color</div>}
+        {errorMsg && (
+          <div style={{ color: 'red', fontWeight: 600 }}>
+            Please select different color
+          </div>
+        )}
         <div className="join-room-btn">
           <Button
-            disabled={!(playerName.trim() && hueValue)}
+            disabled={!(playerName.trim() && player)}
             onClick={handleJoin}
             variant="contained"
             color="primary"

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Table from './Table';
 import PlayerList from './PlayerList';
-import playerImg from '../images/gamePlayer.png';
 import Dices from './Dices';
 import { useTimer } from './customHook';
 import Popup from './popUp';
 import { api } from './api';
+import { BootstrapTooltip, PlayerImg } from './util';
 
 const getInitCells = (dimension) => {
   let rows = [];
@@ -23,12 +23,13 @@ const Board = () => {
   const [table, setTable] = useState(getInitCells(10));
   const [isHost, setHost] = useState(false);
   const [popup, setPopup] = useState(true);
-  const apiData = useTimer({ type: 'board-data' }, 2);
+  const apiData = useTimer({ type: 'board-data' }, 3);
   const [inPlayList, setInPlayList] = useState([]);
   const [winnersList, setWinnersList] = useState([]);
   const [playersWallet, setPlayersWallet] = useState([]);
   const [turn, setTurn] = useState(false);
   const [boardData, setBoardData] = useState({});
+  const [currentPlayer, setCurrentPlayer] = useState({});
 
   useEffect(() => {
     setBoardData(apiData);
@@ -36,14 +37,15 @@ const Board = () => {
 
   useEffect(() => {
     if (boardData.players) {
+      console.log('hii');
       setHost(boardData.isHost);
       setTurn(boardData.turn);
       setPopup(boardData.gameStatus === 'start');
       const inPlay = boardData.players.filter(
         (player) => player.playerPosition !== 100
       );
-      const winners = boardData.players.filter(
-        (player) => player.playerPosition === 100
+      const winners = boardData.winners.map(
+        (index) => boardData.players[index]
       );
       const playersWallet = boardData.players.filter(
         (player) => player.playerPosition === 0
@@ -51,8 +53,9 @@ const Board = () => {
 
       setPlayersWallet(playersWallet);
       setInPlayList(inPlay);
+      setCurrentPlayer(boardData.currentPlayer.player);
       setWinnersList(winners);
-      insertPlayers(boardData.players);
+      setTimeout(() => insertPlayers(boardData.players), 1000);
     }
   }, [boardData]);
 
@@ -63,7 +66,6 @@ const Board = () => {
         -2
       );
       if (players[index].playerPosition !== 0) {
-        console.log(row, column, players[index].playerPosition);
         cells[+row][+column].push(players[index]);
       }
     }
@@ -88,12 +90,17 @@ const Board = () => {
   };
 
   return (
-    <div>
-      <div className="board-status">{`${
-        boardData.currentPlayer || 'player'
-      }'s turn`}</div>
+    <div className="board-page">
+      <div className="board-page-status">
+        {(boardData.currentPlayer && boardData.currentPlayer.name) || 'player'}
+        <span>'s turn</span>
+      </div>
       <div className="dash-board">
-        <PlayerList header="Participants" players={inPlayList} />
+        <PlayerList
+          header="Participants"
+          players={inPlayList}
+          currentPlayer={currentPlayer}
+        />
         <div className="page">
           <div className="player-wallet">
             <div className="player-wallet-box">
@@ -107,14 +114,14 @@ const Board = () => {
                   className="square pure-u-1-6"
                 >
                   <div className="players">
-                    <img
-                      src={playerImg}
-                      alt="player"
-                      style={{
-                        height: 70,
-                        filter: `hue-rotate(${player.hue}deg)`,
-                      }}
-                    />
+                    <BootstrapTooltip title={player.name} placement="top" arrow>
+                      <PlayerImg
+                        {...{
+                          height: 70,
+                          player: player.player,
+                        }}
+                      />
+                    </BootstrapTooltip>
                   </div>
                 </div>
               ))}
@@ -125,12 +132,15 @@ const Board = () => {
         <PlayerList header="Winners" players={winnersList} />
       </div>
       <div className="dices">
-        <div>
-          <div className="dice-board">{boardData.dice || 6}</div>
-          <Dices handleRoll={handleRoll} disable={!turn} />
-        </div>
+        <div className="dice-board">{boardData.dice || 6}</div>
+        <Dices handleRoll={handleRoll} disable={!turn} />
       </div>
-      <Popup popup={popup} handleStart={handleStart} isHost={isHost} />
+      <Popup
+        popup={popup}
+        handleStart={handleStart}
+        isHost={isHost}
+        isGameCompleted={boardData.gameStatus === 'completed'}
+      />
     </div>
   );
 };

@@ -56,33 +56,44 @@
 
 .dash-board {
   display: flex;
+  justify-content: space-around;
+  margin-top: 60px;
 }
 
-.player-list {
+.player-list-container {
+  border: 3px solid black;
+  border-radius: 10px;
   width: 200px;
   height: 500px;
-  border: 1px solid black;
-  margin: 0px 20px;
+  overflow: scroll;
+  margin-top: 150px;
+}
+
+.player-list-container h3 {
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+.activePlayer {
+  background-color: aliceblue;
+  border-radius: 20px;
 }
 
 .player {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 5px;
 }
 
 .player div {
   width: 120px;
-}
-
-.player-list-header {
-  display: flex;
-  justify-content: center;
+  font-weight: 600;
 }
 
 .dices {
-  display: flex;
-  justify-content: flex-end;
+  margin: -70px 0px 0px 70px;
+  width: 90px;
 }
 
 .board-status {
@@ -200,6 +211,34 @@
   background-image: url(./images/loginPage.jpeg);
 }
 
+.board-page {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-image: url(./images/gameBoardPage.jpeg);
+  background-size: cover;
+}
+
+.board-page-status {
+  font-size: xx-large;
+  text-align: center;
+  font-weight: 900;
+}
+
+.board-page-status span {
+  font-weight: 400;
+}
+
 .join-room-btn {
   margin-top: 39px;
+}
+
+.disable-dice {
+  cursor: no-drop;
+  opacity: 0.5;
+}
+
+.active-dice,
+.pointer {
+  cursor: pointer;
 }

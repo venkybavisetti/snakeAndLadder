@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 function getModalStyle() {
   return {
@@ -21,13 +22,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Popup({ popup, handleStart, isHost }) {
+export default function Popup({ popup, handleStart, isHost, isGameCompleted }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
+  const history = useHistory();
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      {isHost ? (
+      {isGameCompleted ? (
+        <>
+          <h2 id="simple-modal-title">Play Another Game</h2>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              history.push('/');
+            }}
+          >
+            Play
+          </Button>
+        </>
+      ) : isHost ? (
         <>
           <h2 id="simple-modal-title">Let's start the Game</h2>
           <Button variant="outlined" color="primary" onClick={handleStart}>
@@ -42,7 +57,7 @@ export default function Popup({ popup, handleStart, isHost }) {
 
   return (
     <Modal
-      open={popup}
+      open={popup || isGameCompleted}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
     >

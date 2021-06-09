@@ -1,28 +1,40 @@
 import React from 'react';
-import player from '../images/gamePlayer.png';
+import { PlayerImg } from './util';
 
-const Player = ({ playerData }) => {
+const Player = ({ playerData, currentPlayer }) => {
   return (
-    <div className="player">
-      <img
-        src={player}
-        alt="player"
-        style={{ height: 35, filter: `hue-rotate(${playerData.hue}deg)` }}
+    <div
+      className={`player ${
+        currentPlayer &&
+        playerData.player.playerNum === currentPlayer.playerNum &&
+        playerData.player.hue === currentPlayer.hue
+          ? 'activePlayer'
+          : ''
+      }`}
+    >
+      <PlayerImg
+        {...{
+          height: 35,
+          player: playerData.player,
+        }}
       />
       <div>{playerData.name}</div>
     </div>
   );
 };
 
-const PlayerList = ({ header, players }) => {
+const PlayerList = ({ header, players, currentPlayer }) => {
+  console.log(players, currentPlayer);
   return (
-    <div>
-      <div className="player-list-header">{header}</div>
-      <div className="player-list">
-        {players.map((playerData, index) => (
-          <Player key={index} playerData={playerData} />
-        ))}
-      </div>
+    <div className="player-list-container">
+      <h3>{header}</h3>
+      {players.map((playerData, index) => (
+        <Player
+          key={index}
+          playerData={playerData}
+          currentPlayer={currentPlayer}
+        />
+      ))}
     </div>
   );
 };

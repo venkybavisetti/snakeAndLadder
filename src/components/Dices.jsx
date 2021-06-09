@@ -4,12 +4,14 @@ import 'react-dice-complete/dist/react-dice-complete.css';
 
 const Dice = ({ disable, handleRoll }) => {
   return (
-    <ReactDice
-      numDice={1}
-      rollDone={handleRoll}
-      defaultRoll={6}
-      disableIndividual={disable}
-    />
+    <div className={disable ? 'disable-dice' : 'active-dice'}>
+      <ReactDice
+        numDice={1}
+        rollDone={handleRoll}
+        defaultRoll={6}
+        disableIndividual={disable}
+      />
+    </div>
   );
 };
 
