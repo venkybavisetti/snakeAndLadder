@@ -1,10 +1,17 @@
 import React from 'react';
 import Row from './Row';
 
-const Table = ({ table }) => {
+const Table = ({ table, currentPlayerId }) => {
   let rows = [];
   for (let i = 0; i < table.length; i++) {
-    rows.push(<Row cellArray={table[i]} id={i} key={i} />);
+    rows.push(
+      <Row
+        cellArray={table[i]}
+        id={i}
+        key={i}
+        currentPlayerId={currentPlayerId}
+      />
+    );
   }
 
   return (

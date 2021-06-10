@@ -1,15 +1,11 @@
 import React from 'react';
 import { PlayerImg } from './util';
 
-const Player = ({ playerData, currentPlayer }) => {
+const Player = ({ playerData, currentPlayer, isHost }) => {
   return (
     <div
       className={`player ${
-        currentPlayer &&
-        playerData.player.playerNum === currentPlayer.playerNum &&
-        playerData.player.hue === currentPlayer.hue
-          ? 'activePlayer'
-          : ''
+        playerData.playerId === currentPlayer ? 'activePlayer' : ''
       }`}
     >
       <PlayerImg
@@ -23,8 +19,7 @@ const Player = ({ playerData, currentPlayer }) => {
   );
 };
 
-const PlayerList = ({ header, players, currentPlayer }) => {
-  console.log(players, currentPlayer);
+const PlayerList = ({ header, players, currentPlayer, isHost }) => {
   return (
     <div className="player-list-container">
       <h3>{header}</h3>
@@ -33,6 +28,7 @@ const PlayerList = ({ header, players, currentPlayer }) => {
           key={index}
           playerData={playerData}
           currentPlayer={currentPlayer}
+          isHost={isHost}
         />
       ))}
     </div>

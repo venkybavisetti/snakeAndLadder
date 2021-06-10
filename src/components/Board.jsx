@@ -29,7 +29,7 @@ const Board = () => {
   const [playersWallet, setPlayersWallet] = useState([]);
   const [turn, setTurn] = useState(false);
   const [boardData, setBoardData] = useState({});
-  const [currentPlayer, setCurrentPlayer] = useState({});
+  const [currentPlayerId, setCurrentPlayer] = useState({});
 
   useEffect(() => {
     setBoardData(apiData);
@@ -37,9 +37,8 @@ const Board = () => {
 
   useEffect(() => {
     if (boardData.players) {
-      console.log('hii');
-      setHost(boardData.isHost);
       setTurn(boardData.turn);
+      setHost(boardData.isHost);
       setPopup(boardData.gameStatus === 'start');
       const inPlay = boardData.players.filter(
         (player) => player.playerPosition !== 100
@@ -53,9 +52,11 @@ const Board = () => {
 
       setPlayersWallet(playersWallet);
       setInPlayList(inPlay);
-      setCurrentPlayer(boardData.currentPlayer.player);
+      setCurrentPlayer(boardData.currentPlayer.playerId);
       setWinnersList(winners);
-      setTimeout(() => insertPlayers(boardData.players), 1000);
+      setTimeout(() => {
+        insertPlayers(boardData.players);
+      }, 1000);
     }
   }, [boardData]);
 
@@ -99,7 +100,8 @@ const Board = () => {
         <PlayerList
           header="Participants"
           players={inPlayList}
-          currentPlayer={currentPlayer}
+          currentPlayer={currentPlayerId}
+          isHost={isHost}
         />
         <div className="page">
           <div className="player-wallet">
@@ -119,6 +121,7 @@ const Board = () => {
                         {...{
                           height: 70,
                           player: player.player,
+                          isCurrentPlayer: currentPlayerId === player.playerId,
                         }}
                       />
                     </BootstrapTooltip>
@@ -127,9 +130,9 @@ const Board = () => {
               ))}
             </div>
           </div>
-          <Table table={table} />
+          <Table table={table} currentPlayerId={currentPlayerId} />
         </div>
-        <PlayerList header="Winners" players={winnersList} />
+        <PlayerList header="Winners" players={winnersList} isHost={isHost} />
       </div>
       <div className="dices">
         <div className="dice-board">{boardData.dice || 6}</div>
