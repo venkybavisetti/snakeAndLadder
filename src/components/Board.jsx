@@ -23,7 +23,7 @@ const Board = () => {
   const [table, setTable] = useState(getInitCells(10));
   const [isHost, setHost] = useState(false);
   const [popup, setPopup] = useState(true);
-  const apiData = useTimer({ type: 'board-data' }, 3);
+  const apiData = useTimer({ type: 'board-data' }, 4);
   const [inPlayList, setInPlayList] = useState([]);
   const [winnersList, setWinnersList] = useState([]);
   const [playersWallet, setPlayersWallet] = useState([]);
@@ -90,6 +90,19 @@ const Board = () => {
     api({ type: 'dice', data: { dice: num } }).then(setBoardData);
   };
 
+  const handlePlayerRemove = (removePlayerId) => {
+    setTurn(false);
+    setHost(false);
+    api({ type: 'remove-player', data: { removePlayerId } }).then(setBoardData);
+  };
+
+  const handleChangeHost = (changeHost) => {
+    setTurn(false);
+    setHost(false);
+    console.log(changeHost);
+    api({ type: 'change-host', data: { changeHost } }).then(setBoardData);
+  };
+
   return (
     <div className="board-page">
       <div className="board-page-status">
@@ -102,6 +115,9 @@ const Board = () => {
           players={inPlayList}
           currentPlayer={currentPlayerId}
           isHost={isHost}
+          hostId={boardData.hostId}
+          handlePlayerRemove={handlePlayerRemove}
+          handleChangeHost={handleChangeHost}
         />
         <div className="page">
           <div className="player-wallet">
@@ -132,12 +148,20 @@ const Board = () => {
           </div>
           <Table table={table} currentPlayerId={currentPlayerId} />
         </div>
-        <PlayerList header="Winners" players={winnersList} isHost={isHost} />
+        <PlayerList
+          header="Winners"
+          players={winnersList}
+          isHost={isHost}
+          hostId={boardData.hostId}
+          handlePlayerRemove={handlePlayerRemove}
+          handleChangeHost={handleChangeHost}
+        />
       </div>
-      <div className="dices">
-        <div className="dice-board">{boardData.dice || 6}</div>
-        <Dices handleRoll={handleRoll} disable={!turn} />
-      </div>
+      <Dices
+        diceValue={boardData.dice || 6}
+        handleRoll={handleRoll}
+        disable={!turn}
+      />
       <Popup
         popup={popup}
         handleStart={handleStart}

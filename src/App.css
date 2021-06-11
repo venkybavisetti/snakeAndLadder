@@ -75,16 +75,20 @@
   border-bottom: 1px solid black;
 }
 
-.activePlayer {
-  background-color: aliceblue;
-  border-radius: 20px;
-}
-
 .player {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   margin-bottom: 5px;
+  border-radius: 20px;
+  background-color: whitesmoke;
+}
+
+.activePlayer {
+  background-color: black;
+  border-radius: 20px;
+  color: white;
 }
 
 .player div {
@@ -289,4 +293,26 @@
   100% {
     height: 70px;
   }
+}
+
+.host-controls {
+  position: absolute;
+  right: 0%;
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.player-hover {
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: #bbee9b;
+  color: black;
+}
+
+.change-host {
+  color: blue;
+  margin-right: 5px;
+}
+.remove-player {
+  color: red;
 }

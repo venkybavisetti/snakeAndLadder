@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
 
-const Dice = ({ disable, handleRoll }) => {
+const Dice = ({ diceValue, disable, handleRoll }) => {
   const [disableImmediate, setDisableImmediate] = useState(true);
 
   useEffect(() => {
@@ -10,17 +10,20 @@ const Dice = ({ disable, handleRoll }) => {
   }, [disable]);
 
   return (
-    <div
-      className={disable ? 'disable-dice' : 'active-dice'}
-      onClick={() => setDisableImmediate(true)}
-    >
-      <ReactDice
-        numDice={1}
-        rollDone={handleRoll}
-        defaultRoll={6}
-        disableIndividual={disableImmediate}
-        rollTime={1.5}
-      />
+    <div className="dices">
+      <div className="dice-board">{diceValue}</div>
+      <div
+        className={disable ? 'disable-dice' : 'active-dice'}
+        onClick={() => setDisableImmediate(true)}
+      >
+        <ReactDice
+          numDice={1}
+          rollDone={handleRoll}
+          defaultRoll={6}
+          disableIndividual={disableImmediate}
+          rollTime={1.5}
+        />
+      </div>
     </div>
   );
 };

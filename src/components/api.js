@@ -40,6 +40,10 @@ const api = (action) => {
       return postReq('/api/start', {});
     case 'dice':
       return postReq('/api/dice', action.data);
+    case 'change-host':
+      return postReq('/api/changeHost', action.data);
+    case 'remove-player':
+      return postReq('/api/removePlayer', action.data);
 
     case 'roomId':
       return getReq('/api/roomId');
