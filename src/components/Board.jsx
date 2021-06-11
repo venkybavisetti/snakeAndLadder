@@ -6,6 +6,7 @@ import { useTimer } from './customHook';
 import Popup from './popUp';
 import { api } from './api';
 import { BootstrapTooltip, PlayerImg } from './util';
+import Notification from './Notification';
 
 const getInitCells = (dimension) => {
   let rows = [];
@@ -105,6 +106,9 @@ const Board = () => {
 
   return (
     <div className="board-page">
+      {boardData.notification && (
+        <Notification notification={boardData.notification} />
+      )}
       <div className="board-page-status">
         {(boardData.currentPlayer && boardData.currentPlayer.name) || 'player'}
         <span>'s turn</span>
