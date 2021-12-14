@@ -31,10 +31,15 @@ const Board = () => {
   const [turn, setTurn] = useState(false);
   const [boardData, setBoardData] = useState({});
   const [currentPlayerId, setCurrentPlayer] = useState({});
+  const [enableDice, setEnableDice] = useState(true);
 
   useEffect(() => {
     setBoardData(apiData);
   }, [apiData]);
+
+  useEffect(() => {
+    setEnableDice(true);
+  }, [boardData]);
 
   useEffect(() => {
     if (boardData.players) {
@@ -86,9 +91,12 @@ const Board = () => {
     }
   };
 
-  const handleRoll = (num) => {
+  const handleRoll = async () => {
+    setEnableDice(false);
     setTurn(false);
-    api({ type: 'dice', data: { dice: num } }).then(setBoardData);
+    await api({ type: 'dice' }).then((data) => {
+      setBoardData(data);
+    });
   };
 
   const handlePlayerRemove = (removePlayerId) => {
@@ -161,11 +169,13 @@ const Board = () => {
           handleChangeHost={handleChangeHost}
         />
       </div>
-      <Dices
-        diceValue={boardData.dice || 6}
-        handleRoll={handleRoll}
-        disable={!turn}
-      />
+      {enableDice && (
+        <Dices
+          diceValue={boardData.dice || 6}
+          handleRoll={handleRoll}
+          disable={!turn}
+        />
+      )}
       <Popup
         popup={popup}
         handleStart={handleStart}

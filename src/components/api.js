@@ -38,13 +38,13 @@ const api = (action) => {
       return postReq('/api/join', action.data);
     case 'start':
       return postReq('/api/start', {});
-    case 'dice':
-      return postReq('/api/dice', action.data);
     case 'change-host':
       return postReq('/api/changeHost', action.data);
     case 'remove-player':
       return postReq('/api/removePlayer', action.data);
 
+    case 'dice':
+      return getReq('/api/dice');
     case 'roomId':
       return getReq('/api/roomId');
     case 'player-colors':

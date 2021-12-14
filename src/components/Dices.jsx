@@ -14,12 +14,14 @@ const Dice = ({ diceValue, disable, handleRoll }) => {
       <div className="dice-board">{diceValue}</div>
       <div
         className={disable ? 'disable-dice' : 'active-dice'}
-        onClick={() => setDisableImmediate(true)}
+        onClick={() => {
+          setDisableImmediate(true);
+          !disableImmediate&&handleRoll();
+        }}
       >
         <ReactDice
           numDice={1}
-          rollDone={handleRoll}
-          defaultRoll={6}
+          defaultRoll={diceValue}
           disableIndividual={disableImmediate}
           rollTime={1.5}
         />
